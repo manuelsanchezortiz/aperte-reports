@@ -168,6 +168,7 @@ public class ReportParametersComponent extends AbstractLazyLoaderComponent {
 
         //xxxs move id to id, move management of user properties to base class (?)
         parameters.put("login", getLogin());
+        parameters.put("groupId", getGroupId());
 //        xxx: use property set underneath the form
         parameters.put(JRParameter.REPORT_LOCALE, localeComboBox.getValue() == null ? null : localeComboBox.getValue().toString());
         return parameters;
@@ -198,6 +199,12 @@ public class ReportParametersComponent extends AbstractLazyLoaderComponent {
         return login;
     }
 
+    private long getGroupId(){
+    	long groupId= ((AbstractReportingApplication)getApplication()).getGroupId();
+    	
+    	return groupId;
+    }
+    
     /**
      * Returns selected report format.
      *

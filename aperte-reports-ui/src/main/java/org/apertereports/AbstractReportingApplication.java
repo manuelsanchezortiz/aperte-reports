@@ -1,7 +1,8 @@
 package org.apertereports;
 
-import com.liferay.portal.model.Role;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -13,8 +14,15 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.apertereports.common.exception.ARRuntimeException;
+import org.apertereports.common.users.User;
+import org.apertereports.common.users.UserRole;
 import org.apertereports.util.NotificationUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.vaadin.event.ListenerMethod;
 import com.vaadin.terminal.gwt.server.PortletApplicationContext2;
@@ -23,12 +31,6 @@ import com.vaadin.ui.Window;
 
 import eu.livotov.tpt.TPTApplication;
 import eu.livotov.tpt.i18n.TM;
-import java.util.HashSet;
-import java.util.Set;
-import org.apertereports.common.users.User;
-import org.apertereports.common.users.UserRole;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is a stub abstract class for all application portlets. Extending classes
@@ -56,7 +58,12 @@ public abstract class AbstractReportingApplication<T extends Panel> extends TPTA
      * User locale.
      */
     private Locale locale;
-
+    
+    /**
+     * Current group
+     */
+    private Long groupId;
+    
     /**
      * Initializes the application context.
      */
@@ -183,6 +190,8 @@ public abstract class AbstractReportingApplication<T extends Panel> extends TPTA
                 }
 
                 locale = PortalUtil.getLocale(request);
+                
+                groupId= this.getThemeDisplay(request).getLayout().getGroupId();
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
                 throw new RuntimeException(e);
@@ -191,6 +200,13 @@ public abstract class AbstractReportingApplication<T extends Panel> extends TPTA
         logger.debug("RENDER REQUEST END, " + getClass().getSimpleName());
     }
 
+    private ThemeDisplay getThemeDisplay(RenderRequest request){
+    	ThemeDisplay themeDisplay = 
+    			(ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
+    	
+    	return themeDisplay;
+    }
+    
     /**
      * Handles portlet action request however not used in the application.
      *
@@ -242,5 +258,9 @@ public abstract class AbstractReportingApplication<T extends Panel> extends TPTA
      */
     public Locale getArLocale() {
         return locale;
+    }
+    
+    public Long getGroupId(){
+    	return this.groupId;
     }
 }
