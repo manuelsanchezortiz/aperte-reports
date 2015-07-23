@@ -33,7 +33,7 @@ public final class ReportOrderBuilder {
      * generated report
      * @return A configured report order
      */
-    public static ReportOrder build(final ReportTemplate report, Map<String, String> parameters, String format,
+    public static ReportOrder build(final ReportTemplate report, Map<String, Object> parameters, String format,
             String recipientEmail, String username, boolean replyToJms) {
         final ReportOrder reportOrder = new ReportOrder();
         reportOrder.setParametersXml(XmlReportConfigLoader.getInstance().mapAsXml(parameters));

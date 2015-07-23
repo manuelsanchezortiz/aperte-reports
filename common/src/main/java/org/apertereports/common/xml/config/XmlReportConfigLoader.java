@@ -83,7 +83,7 @@ public class XmlReportConfigLoader extends XmlHelper {
      * @param xml A string with XML
      * @return A map of parameters
      */
-    public Map<String, String> xmlAsMap(String xml) {
+    public Map<String, Object> xmlAsMap(String xml) {
         return parameterListToMap(xmlAsParameters(xml));
     }
 
@@ -94,7 +94,7 @@ public class XmlReportConfigLoader extends XmlHelper {
      * @param map A map of parameters
      * @return A string with XML
      */
-    public String mapAsXml(Map<String, String> map) {
+    public String mapAsXml(Map<String, Object> map) {
         return parametersAsXML(mapToParameterList(map));
     }
 
@@ -105,12 +105,16 @@ public class XmlReportConfigLoader extends XmlHelper {
      * @param map A map of parameters
      * @return A list of {@link ReportConfigParameter}
      */
-    public List<ReportConfigParameter> mapToParameterList(Map<String, String> map) {
+    public List<ReportConfigParameter> mapToParameterList(Map<String, Object> map) {
+    	
+    	//TODO Update map to use value as an Object so we can store groupId. 
+    	//so this needs to be able to store more things to run fine
+    	
         List<ReportConfigParameter> list = new ArrayList<ReportConfigParameter>(map.values().size());
-        for (Entry<String, String> e : map.entrySet()) {
+        for (Entry<String, Object> e : map.entrySet()) {
             ReportConfigParameter p = new ReportConfigParameter();
             p.setName(e.getKey());
-            p.setValue(e.getValue());
+            p.setValue(e.getValue() == null ? null : e.getValue().toString() );
             list.add(p);
         }
         return list;
@@ -123,10 +127,12 @@ public class XmlReportConfigLoader extends XmlHelper {
      * @param params A list of parameters
      * @return A map of parameters
      */
-    public Map<String, String> parameterListToMap(List<ReportConfigParameter> params) {
-        Map<String, String> map = new HashMap<String, String>();
+    public Map<String, Object> parameterListToMap(List<ReportConfigParameter> params) {
+        Map<String, Object> map = new HashMap<String, Object>();
         if (params != null && !params.isEmpty()) {
             for (ReportConfigParameter config : params) {
+            	//TODO value can be object in mapToParameterList see there, so
+            	//here we need reconversion
                 map.put(config.getName(), config.getValue());
             }
         }

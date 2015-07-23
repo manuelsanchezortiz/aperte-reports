@@ -134,7 +134,7 @@ public class AperteInvokerComponent extends Panel {
                     if (!panel.validateForm()) {
                         return;
                     }
-                    Map<String, String> parameters = panel.collectParametersValues();
+                    Map<String, Object> parameters = panel.collectParametersValues();
                     String email = user.getEmail();
                     if (!Boolean.TRUE.equals(sendEmailCheckbox.getValue())) {
                         email = null;

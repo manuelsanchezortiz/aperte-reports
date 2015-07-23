@@ -177,7 +177,7 @@ public class ReportViewComponent extends AbstractLazyLoaderComponent implements 
         drillConfig.setAllowRefresh(false);
         drillConfig.setCacheTimeout(0);
         drillConfig.setId(DashboardUtil.generateDrilldownId(configMap.keySet()));
-        Map<String, String> reportParameters = new HashMap<String, String>();
+        Map<String, Object> reportParameters = new HashMap<String, Object>();
         for (Entry<String, List<String>> e : params.entrySet()) {
             String key = e.getKey();
             List<String> values = e.getValue();

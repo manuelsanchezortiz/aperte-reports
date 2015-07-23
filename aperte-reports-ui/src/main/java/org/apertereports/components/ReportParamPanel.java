@@ -53,7 +53,7 @@ public class ReportParamPanel extends Panel {
         this.buttons = buttons;
     }
 
-    public Map<String, String> collectParametersValues() {
+    public Map<String, Object> collectParametersValues() {
         return reportParametersComponent.collectParametersValues();
     }
 

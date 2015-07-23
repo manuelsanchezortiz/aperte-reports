@@ -406,7 +406,7 @@ public class ReportManagerComponent extends Panel {
                 @Override
                 public void buttonClick(ClickEvent event) {
                     logger.info("Generate in background action...");
-                    Map<String, String> parameters = panel.collectParametersValues();
+                    Map<String, Object> parameters = panel.collectParametersValues();
                     String email = user.getEmail();
                     if (!Boolean.TRUE.equals((Boolean) sendEmailCheckbox.getValue())) {
                         email = null;

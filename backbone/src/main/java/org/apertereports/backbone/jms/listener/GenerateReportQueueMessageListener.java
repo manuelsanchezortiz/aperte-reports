@@ -110,7 +110,7 @@ public final class GenerateReportQueueMessageListener implements MessageListener
 
         ReportTemplate reportTemplate = reportOrder.getReport();
 
-        Map<String, String> parametersMap = XmlReportConfigLoader.getInstance().xmlAsMap(reportOrder.getParametersXml());
+        Map<String, Object> parametersMap = XmlReportConfigLoader.getInstance().xmlAsMap(reportOrder.getParametersXml());
 
         try {
             ReportMaster rm = new ReportMaster(reportTemplate.getContent(),

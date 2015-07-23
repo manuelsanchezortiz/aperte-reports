@@ -152,8 +152,8 @@ public class ReportParametersComponent extends AbstractLazyLoaderComponent {
      *
      * @return A map of report parameters
      */
-    public Map<String, String> collectParametersValues() {
-        Map<String, String> parameters = new HashMap<String, String>(fields.size());
+    public Map<String, Object> collectParametersValues() {
+        Map<String, Object> parameters = new HashMap<String, Object>(fields.size());
         for (FieldContainer field : fields) {
             if (field.getComponentType().equals(FILTER)) {
                 continue;

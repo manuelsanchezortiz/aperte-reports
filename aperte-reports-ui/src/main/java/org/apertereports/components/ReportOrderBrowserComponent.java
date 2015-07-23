@@ -186,12 +186,13 @@ public class ReportOrderBrowserComponent extends Panel {
     private class ReportOrderParamsPanel extends Panel {
 
         public ReportOrderParamsPanel(String paramsXml) {
-            Map<String, String> params = XmlReportConfigLoader.getInstance().xmlAsMap(paramsXml);
+            Map<String, Object> params = XmlReportConfigLoader.getInstance().xmlAsMap(paramsXml);
             List<String> sortedParamNames = new ArrayList<String>(params.keySet());
             Collections.sort(sortedParamNames);
             PropertysetItem item = new PropertysetItem();
+            //TODO another object to string conversion as params can not be Object. Review 
             for (String string : sortedParamNames) {
-                item.addItemProperty(string, new ObjectProperty<String>(params.get(string)));
+                item.addItemProperty(string, new ObjectProperty<String>(params.get(string) == null ? null : params.get(string).toString()));
             }
             Form form = new Form();
             form.setItemDataSource(item);

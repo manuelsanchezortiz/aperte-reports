@@ -69,7 +69,7 @@ public class ReportOrderJob implements Job {
             return null;
         }
 
-        Map<String, String> params = XmlReportConfigLoader.getInstance().xmlAsMap(config.getParametersXml());
+        Map<String, Object> params = XmlReportConfigLoader.getInstance().xmlAsMap(config.getParametersXml());
         ro = ReportOrderBuilder.build(config.getReport(), params, config.getOutputFormat(),
                 config.getRecipientEmail(), null, true);
         config.setProcessedOrder(ro);
