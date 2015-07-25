@@ -169,6 +169,8 @@ public class ReportParametersComponent extends AbstractLazyLoaderComponent {
         //xxxs move id to id, move management of user properties to base class (?)
         parameters.put("login", getLogin());
         parameters.put("groupId", getGroupId());
+        parameters.put("userId", getUserId());
+        
 //        xxx: use property set underneath the form
         parameters.put(JRParameter.REPORT_LOCALE, localeComboBox.getValue() == null ? null : localeComboBox.getValue().toString());
         return parameters;
@@ -204,6 +206,21 @@ public class ReportParametersComponent extends AbstractLazyLoaderComponent {
     	
     	return groupId;
     }
+
+    private long getUserId() {
+        long userId = 0;
+        try {
+            User user = ((AbstractReportingApplication) getApplication()).getArUser();
+            if (user != null) {
+            	userId= user.getUserId();
+            }
+        } catch (Exception e) {
+            logger.warn(VaadinUtil.getValue("liferay.get.login.exception"), e);
+            throw new RuntimeException(e);
+        }
+
+        return userId;
+    }    
     
     /**
      * Returns selected report format.

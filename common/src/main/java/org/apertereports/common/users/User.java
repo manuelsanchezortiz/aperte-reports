@@ -11,16 +11,26 @@ import java.util.Set;
  */
 public class User {
 
+	private long userId;
     private final String login;
     private Set<UserRole> roles = new HashSet<UserRole>();
     private final boolean administrator;
     private final String email;
 
-    public User(String login, Set<UserRole> roles, boolean administrator, String email) {
+    public User(long userId, String login, Set<UserRole> roles, boolean administrator, String email) {
+    	this.userId= userId;
         this.login = login;
         this.roles = roles;
         this.administrator = administrator;
         this.email = email;
+    }
+    
+    /**
+     * 
+     * @return the userId
+     */
+    public long getUserId(){
+    	return this.userId;
     }
 
     /**
